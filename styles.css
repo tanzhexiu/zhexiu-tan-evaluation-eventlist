@@ -1,0 +1,83 @@
+body {
+    font-family: serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    text-align: center;
+    font-size: medium;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+input{
+    height: 30px;
+}
+
+#addEventBtn {
+    margin-bottom: 20px;
+    background-color: #008cba;
+    color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    width: 200px;  /* adjust button width */
+    height: 60px; /* adjust button height */
+    border-radius: 5px;
+}
+
+#eventTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 3px 15px;
+    border: 3px solid #e6e2d3;
+}
+
+#eventTable th, #eventTable td {
+    padding: 10px;
+    text-align: center;
+}
+
+#eventTable th {
+    background-color: #f0f0f0;
+    border: 0px solid #e6e2d3;
+}
+
+#eventTable tr {
+    background-color: #e6e2d3;
+    border: 0px solid #e6e2d3;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    color: #f0f0f0;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 50px;  /* adjust button width */
+    height: 50px; /* adjust button height */
+}
+
+button svg {
+    fill: #f0f0f0; /* this will change your svg color */
+    width: 24px; /* adjust svg width */
+    height: 24px; /* adjust svg height */
+}
+
+.buttonBlue {
+    border-radius: 5px;
+    margin-left: 5px;
+    background-color: #008cba; /* blue */
+}
+
+.buttonRed {
+    border-radius: 5px;
+    margin-left: 5px;
+    background-color: #c94c4c; /* red */
+}
+
