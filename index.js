@@ -88,8 +88,8 @@ async function listEvents() {
     const actionCell = row.insertCell();
 
     nameCell.textContent = event.eventName;
-    startDateCell.textContent = new Date(event.startDate).toLocaleDateString();
-    endDateCell.textContent = new Date(event.endDate).toLocaleDateString();
+    startDateCell.textContent = new Date(event.startDate).toISOString().split('T')[0];
+    endDateCell.textContent = new Date(event.endDate).toISOString().split('T')[0];
 
     const editButton = createSVGButton(
       editSVG,
@@ -147,8 +147,8 @@ function cancelEdits(event) {
   const endDateCell = row.cells[2];
 
   nameCell.textContent = event.eventName;
-  startDateCell.textContent = new Date(event.startDate).toLocaleDateString();
-  endDateCell.textContent = new Date(event.endDate).toLocaleDateString();
+  startDateCell.textContent = new Date(event.startDate).toISOString().split('T')[0];
+  endDateCell.textContent = new Date(event.endDate).toISOString().split('T')[0];
 
   const editButton = createSVGButton(
     editSVG,
