@@ -54,7 +54,7 @@ function saveNewEvent() {
     endDate,
   };
 
-  addEvent(newEvent).then(() => {
+  addEventToDB(newEvent).then(() => {
     const newEventRow = document.getElementById("newEventRow");
     newEventRow.parentNode.removeChild(newEventRow);
   });
@@ -65,7 +65,7 @@ function cancelNewEvent() {
   newEventRow.parentNode.removeChild(newEventRow);
 }
 
-async function listEvents() {
+async function listEventsFromDB() {
   const response = await fetch(API_URL);
   const events = await response.json();
 
@@ -99,7 +99,7 @@ async function listEvents() {
 
     const deleteButton = createSVGButton(
       deleteSVG,
-      () => deleteEvent(event.id),
+      () => deleteEventToDB(event.id),
       "buttonRed"
     );
 
@@ -158,7 +158,7 @@ function cancelEdits(event) {
 
   const deleteButton = createSVGButton(
     deleteSVG,
-    () => deleteEvent(event.id),
+    () => deleteEventToDB(event.id),
     "buttonRed"
   );
 
@@ -178,7 +178,7 @@ async function saveEdits(id) {
   };
 
   // Send the updated event to the server
-  await updateEvent(id, updatedEvent);
+  await updateEventToDB(id, updatedEvent);
 
   // Disable the input fields and restore the 'Edit' and 'Delete' buttons
   for (const input of inputs) {
@@ -193,7 +193,7 @@ async function saveEdits(id) {
 
   const deleteButton = createSVGButton(
     deleteSVG,
-    () => deleteEvent(id),
+    () => deleteEventToDB(id),
     "buttonRed"
   );
 
@@ -202,7 +202,7 @@ async function saveEdits(id) {
   actionCell.append(editButton, deleteButton);
 }
 
-async function addEvent(event) {
+async function addEventToDB(event) {
   await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -212,10 +212,10 @@ async function addEvent(event) {
   });
 
   // Refresh the table after adding a new event
-  listEvents();
+  listEventsFromDB();
 }
 
-async function updateEvent(id, event) {
+async function updateEventToDB(id, event) {
   await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
@@ -225,17 +225,17 @@ async function updateEvent(id, event) {
   });
 
   // Refresh the table after updating an event
-  listEvents();
+  listEventsFromDB();
 }
 
-async function deleteEvent(id) {
+async function deleteEventToDB(id) {
   await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
 
   // Refresh the table after deleting an event
-  listEvents();
+  listEventsFromDB();
 }
 
 // Fetch and display the list of events on page load
-listEvents();
+listEventsFromDB();
