@@ -19,6 +19,34 @@ function createSVGButton(svgHTML, onclick, className) {
   return button;
 }
 
+function validateName(input) {
+  // This regular expression allows only alphabetical characters and spaces
+  const re = /^[A-Za-z\s]+$/;
+
+  if (input.startsWith(' ')) {
+      alert('Invalid input. Input should not start with a space.');
+      return false;
+  } else if (!re.test(input)) {
+      alert('Invalid input. Only alphabetical characters and spaces are allowed.');
+      return false;
+  }
+
+  return true;
+}
+
+function validateDates(startDate, endDate) {
+  // Checking if the start date is later than the end date
+  if (!startDate || !endDate) {
+    alert('Invalid date. The start and end date should be entered.');
+    return false;
+  } else if (startDate > endDate) {
+    alert('Invalid date. Start date should be earlier than end date.');
+    return false;
+  }
+
+  return true;
+}
+
 function addEmptyRow() {
   const tbody = document
     .getElementById("eventTable")
@@ -54,6 +82,10 @@ function saveNewEvent() {
     endDate,
   };
 
+  if (!validateName(newEvent.eventName) || !validateDates(newEvent.startDate, newEvent.endDate)) {
+    return;
+  }
+
   addEventToDB(newEvent).then(() => {
     const newEventRow = document.getElementById("newEventRow");
     newEventRow.parentNode.removeChild(newEventRow);
@@ -88,8 +120,8 @@ async function listEventsFromDB() {
     const actionCell = row.insertCell();
 
     nameCell.textContent = event.eventName;
-    startDateCell.textContent = new Date(event.startDate).toISOString().split('T')[0];
-    endDateCell.textContent = new Date(event.endDate).toISOString().split('T')[0];
+    startDateCell.textContent = event.startDate;
+    endDateCell.textContent = event.endDate;
 
     const editButton = createSVGButton(
       editSVG,
@@ -147,8 +179,8 @@ function cancelEdits(event) {
   const endDateCell = row.cells[2];
 
   nameCell.textContent = event.eventName;
-  startDateCell.textContent = new Date(event.startDate).toISOString().split('T')[0];
-  endDateCell.textContent = new Date(event.endDate).toISOString().split('T')[0];
+  startDateCell.textContent = event.startDate;
+  endDateCell.textContent = event.endDate;
 
   const editButton = createSVGButton(
     editSVG,
@@ -176,6 +208,10 @@ async function saveEdits(id) {
     startDate: inputs[1].value,
     endDate: inputs[2].value,
   };
+
+  if (!validateName(updatedEvent.eventName) || !validateDates(updatedEvent.startDate, updatedEvent.endDate)) {
+    return;
+  }
 
   // Send the updated event to the server
   await updateEventToDB(id, updatedEvent);
