@@ -223,7 +223,7 @@ async function saveEdits(id) {
 
   const editButton = createSVGButton(
     editSVG,
-    () => editEvent(id),
+    () => editEvent(updatedEvent),
     "buttonBlue"
   );
 
